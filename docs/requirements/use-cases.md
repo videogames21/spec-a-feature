@@ -1570,7 +1570,7 @@ Details:
 - Recipient Selection Rules:
 The system will not send a nudge email to certain students if:
 a. The student is not assigned to a team. (BR-team-assignment-required).
-b. The submission window is closed for the week for Peer Reviews (BR-evaluation-submission-window).
+b. The due date is closed for the week for Peer Reviews (BR-evaluation-submission-window).
 c. The student is deactivated (BR-student-lifecycle).
 - Not Submitted for WAR reports means that nothing is posted that week from the student, while Peer Reviews means the student has not submitted their evaluations yet.
 - If a students has submitted both WAR report and Peer Review they will not receive a nudge email, but if the student deletes their submission they are then able to receive a nudge email the next time the instructor sends out a reminder until they resubmit.
