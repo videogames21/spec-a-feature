@@ -1530,46 +1530,54 @@ Details:
 **Primary Actor:** instructor
 **Secondary Actors:**
 **Trigger:** The instructor clicks send reminder on the list screen.
-**Description:** The instructor wants to send out a reminder email to all students who have not submitted either WAR report or Peer Review.
+**Description:** The instructor wants to send out a reminder email to all students who have not submitted either WAR report or Peer Review for that week.
 
 **Preconditions:**
 - PRE-1. The instructor is logged into the system.
 - PRE-2. The instructor is assigned to a section.
 
 **Postconditions:**
-- POST-1. A nudge email is sent to all students who have not completed either their WAR or Peer Evaluation in their section.
+- POST-1. A nudge email is sent to all students who have not completed either their WAR or Peer Evaluation in their section for that week.
+- POST-2. A cooldown is applied to a student who received a nudge email.
 
 **Main Success Scenario:**
 1. The instructor clicks send reminder.
-2. The instructor confirms the reminder.
-3. The scheduler sends out email to students who have not submitted both WAR report or peer evaluation and reminds them that they have incomplete tasks.
-4. Use Case Ends.
+2. The instructor choses a week. (Only 1 will be present most of the time, as only one day a week would the submission window overlap with another. So the only two weeks listed would be the previous week and current week.)
+3. The instructor confirms the reminder.
+4. The scheduler sends out email to students who have not submitted both WAR report and peer evaluation to remind them that they have incomplete tasks for that week.
+5. Use Case Ends.
 
 **Extensions:**
 - **1a. The previous week is not one of the course section's active weeks** (e.g., the current week is the section's first active week, whose preceding week is inactive):
   - 1a1. The system does not send a nudge email for uncompleted WAR reports or peer reviews in inactive weeks (BR-active-weeks).
-  - 1a2. Use case ends.
-- **1b. The student submits, then deletes what they submitted:**
-  - 1b1. If a students has submitted both WAR report and Peer Review they will not receive a nudge email, but if the student deletes their submission they are then able to receive a nudge email the next time the instructor sends out a reminder until they resubmit.
-  - 1b2. Use case ends.
+  - 1a2. Use case continues.
 - **2a. The Instructor Spams Remind Students:**
-  - 2a1. The system does not send a nudge email if one has already been sent within a reasonable amount of time (Add Business Rule Here...).
-  - 2a2. Use case ends.
+  - 2a1. The system does not send a nudge email to a student if they had already been sent one within 4 hours (BR-no-spam-nudge).
+  - 2a2. Use case continues.
 - **3a. The system cannot email one or more of the addresses:**
   - 3a1. The system continues with the remaining addresses rather than abandoning the batch, so that a single undeliverable address does not cost the other students their reminder.
   - 3a2. The system reports to the instructor which addresses it could not email, so that they can invite those again.
-  - 3a3. Use case ends.
+  - 3a3. Use case continues.
+- **4a. If all students in the list have already submitted:**
+  -4a1. The instructor cannot click confirm if the system detects that all students have already submitted.
+  -4a2. Use case ends.
 
 **Priority:** High
 **Frequency of Use:** 2 usages a week. Actual use varies based on instructor.
-**Business Rules:** BR-Team-Assignment-Required, BR-active-weeks, BR-evaluation-submission-window, BR-section-scoped-access, BR-..., BR-student-lifecycle
+**Business Rules:** BR-team-assignment-required, BR-active-weeks, BR-evaluation-submission-window, BR-section-scoped-access, BR-no-spam-nudge, BR-student-lifecycle
 
 **Associated Information:**
 - Recipient Selection Rules:
 The system will not send a nudge email to certain students if:
-a. The student is not assigned to a team.
+a. The student is not assigned to a team. (BR-team-assignment-required).
 b. The submission window is closed for the week for Peer Reviews (BR-evaluation-submission-window).
 c. The student is deactivated (BR-student-lifecycle).
+- Not Submitted for WAR reports means that nothing is posted that week from the student, while Peer Reviews means the student has not submitted their evaluations yet.
+- If a students has submitted both WAR report and Peer Review they will not receive a nudge email, but if the student deletes their submission they are then able to receive a nudge email the next time the instructor sends out a reminder until they resubmit.
+
+- The email should be specified as so:
+  Hello *Student*,
+  You have not submitted either you WAR report and/or your Peer Evaluations for the week. Make sure to submit them before the deadline!
 
 - The course admin or instructor shall be able to cancel the use case at any time prior to submitting it.
 
