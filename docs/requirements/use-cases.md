@@ -1522,6 +1522,58 @@ Details:
 **Assumptions:**
 **Open Issues:**
 
+### **UC-STU-send-nudge: The Instructor sends a nudge email to students**
+
+**UC ID and Name:** UC-STU-send-nudge: Send a nudge email to students
+**Created By:**
+**Date Created:**
+**Primary Actor:** instructor
+**Secondary Actors:**
+**Trigger:** The instructor clicks send reminder on the list screen.
+**Description:** The instructor wants to send out a reminder email to all students who have not submitted either WAR report or Peer Review.
+
+**Preconditions:**
+- PRE-1. The instructor is logged into the system.
+- PRE-2. The instructor is assigned to a section.
+
+**Postconditions:**
+- POST-1. A nudge email is sent to all students who have not completed either their WAR or Peer Evaluation in their section.
+
+**Main Success Scenario:**
+1. The instructor clicks send reminder.
+2. The instructor confirms the reminder.
+3. The scheduler sends out email to students who have not submitted both WAR report or peer evaluation and reminds them that they have incomplete tasks.
+4. Use Case Ends.
+
+**Extensions:**
+- **1a. The previous week is not one of the course section's active weeks** (e.g., the current week is the section's first active week, whose preceding week is inactive):
+  - 1a1. The system does not send a nudge email for uncompleted WAR reports or peer reviews in inactive weeks (BR-active-weeks).
+  - 1a2. Use case ends.
+- **1b. The student submits, then deletes what they submitted:**
+  - 1b1. If a students has submitted both WAR report and Peer Review they will not receive a nudge email, but if the student deletes their submission they are then able to receive a nudge email the next time the instructor sends out a reminder until they resubmit.
+  - 1b2. Use case ends.
+- **2a. The Instructor Spams Remind Students:**
+  - 2a1. The system does not send a nudge email if one has already been sent within a reasonable amount of time (Add Business Rule Here...).
+  - 2a2. Use case ends.
+
+**Priority:** High
+**Frequency of Use:** 2 usages a week. Actual use varies based on instructor.
+**Business Rules:** BR-Team-Assignment-Required, BR-active-weeks, BR-evaluation-submission-window, BR-section-scoped-access, BR-..., BR-student-lifecycle
+
+**Associated Information:**
+- Recipient Selection Rules:
+The system will not send a nudge email to certain students if:
+a. The student is not assigned to a team.
+b. The submission window is closed for the week for Peer Reviews (BR-evaluation-submission-window).
+c. The student is deactivated (BR-student-lifecycle).
+
+- The course admin or instructor shall be able to cancel the use case at any time prior to submitting it.
+
+**Assumptions:**
+There is a Use Case that allows an Instructor to view a list of students who have and haven't completed either their WAR report or Peer Review. (There currently isn't).
+**Open Issues:**
+
+
 ## **Instructor**
 
 ### **UC-INS-invite-instructors: The course admin invites instructors to register an account**
