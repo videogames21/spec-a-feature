@@ -1555,6 +1555,10 @@ Details:
 - **2a. The Instructor Spams Remind Students:**
   - 2a1. The system does not send a nudge email if one has already been sent within a reasonable amount of time (Add Business Rule Here...).
   - 2a2. Use case ends.
+- **3a. The system cannot email one or more of the addresses:**
+  - 3a1. The system continues with the remaining addresses rather than abandoning the batch, so that a single undeliverable address does not cost the other students their reminder.
+  - 3a2. The system reports to the instructor which addresses it could not email, so that they can invite those again.
+  - 3a3. Use case ends.
 
 **Priority:** High
 **Frequency of Use:** 2 usages a week. Actual use varies based on instructor.
